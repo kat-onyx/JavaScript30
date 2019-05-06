@@ -59,17 +59,23 @@
 
 <script>
   const keys = document.getElementsByClassName("key");
-  const keyDiv = document.getElementsByClassName("keys")[0];
   const sounds = document.getElementsByTagName("audio");
+
+  window.addEventListener("keyup", function(e) {
+    const key = document.querySelector(`div[data-key="${e.keyCode}"`);
+    key.classList.remove("playing");
+  });
+  
   window.addEventListener("keydown", function(e) {
+    const key = document.querySelector(`div[data-key="${e.keyCode}"`);
     Array.from(sounds).forEach(sound => {
       if (e.keyCode.toString() === sound.dataset.key) {
+        if (key.className === "key") {
+          key.className += " playing";
+        }
         sound.play()
       }
     })
-    // const audioTag = e.target.dataset.key;
-    // console.log(e)
-    // audioTag.play();
   })
 </script>
 
